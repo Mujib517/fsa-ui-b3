@@ -5,6 +5,8 @@
 import About from './About';
 import Languages from './Languages';
 import Person from './Name';
+import 'bootstrap/dist/css/bootstrap.css';
+import './App.css';
 
 const App = () => {
     // JSX
