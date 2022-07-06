@@ -7,10 +7,13 @@ import Languages from './Languages';
 import Person from './Name';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
+import Student from './Student';
 
 const App = () => {
     // JSX
     return <div>
+        <Student marks={40} />
+        <Student marks={30} />
         <Languages />
         <Person name="John" age={20} dept="CSE" />
         <Person name="Joseph" age={20} />

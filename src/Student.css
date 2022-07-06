@@ -1,0 +1,9 @@
+.pass {
+    width: 90px;
+    background-color: green;
+}
+
+.fail {
+    width: 90px;
+    background-color: brown;
+}
