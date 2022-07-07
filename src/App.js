@@ -9,9 +9,9 @@ import Counter from './Counter';
 const App = () => {
     // JSX
     return <div>
-        <Counter />
-        <Counter />
-        <Counter />
+        <Counter count={0} />
+        <Counter count={1} />
+        <Counter count={10} />
     </div>
 };
 

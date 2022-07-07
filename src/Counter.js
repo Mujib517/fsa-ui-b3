@@ -1,13 +1,12 @@
 import React from 'react';
-
 class Counter extends React.Component {
     state = {
-        count: 10
+        count: 0
     };
 
-    constructor() {
-        super();
-
+    constructor(props) {
+        super(props);
+        this.state.count = this.props.count;
         // this.onInc = this.onInc.bind(this);
         // this.onDec = this.onDec.bind(this);
     }
@@ -19,7 +18,7 @@ class Counter extends React.Component {
             count: currentCount + 1
         });
     }
-
+    
     // handler
     onDec = () => {
         const currentCount = this.state.count;
