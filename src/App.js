@@ -3,8 +3,8 @@
 // modules: CommonJS
 // ES6 module
 import 'bootstrap/dist/css/bootstrap.css';
+import 'font-awesome/css/font-awesome.css';
 import './App.css';
-import Counter from './Counter';
 import UserList from './UserList';
 
 const App = () => {
