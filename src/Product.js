@@ -1,5 +1,8 @@
+import { Link } from 'react-router-dom';
+
 import PhoneIcon from './assets/img/phone-icon.png';
 import IfElse from './IfElse';
+
 
 function Product({ product }) {
     return <>
@@ -9,11 +12,13 @@ function Product({ product }) {
                 <img className="card-img" src={PhoneIcon} />
             </IfElse>
             <div className="card-body">
-                <div className="card-title">{product.brand} {product.model}</div>
-                <b>${product.price}</b>
-                <div>
-                    In Stock: <input type="checkbox" checked={product.inStock} />
-                </div>
+                <Link to={"/products/" + product._id}>
+                    <div className="card-title">{product.brand} {product.model}</div>
+                    <b>${product.price}</b>
+                    <div>
+                        In Stock: <input type="checkbox" checked={product.inStock} />
+                    </div>
+                </Link>
             </div>
             <div className="card-footer">
                 <button className="btn btn-sm btn-danger">
