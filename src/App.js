@@ -15,6 +15,7 @@ import Contact from './Contact';
 import NotFound from './NotFound';
 import ProductList from './ProductList';
 import ProductDetail from './ProductDetail';
+import NewProduct from './NewProduct';
 
 // Single Page App (SPA)
 // One page index.html
@@ -32,6 +33,7 @@ const App = () => {
                 <Route path='/users' element={<UserList />} />
                 <Route path='/products' element={<ProductList />} />
                 <Route path='/products/:id' element={<ProductDetail />} />
+                <Route path='/products/new' element={<NewProduct />} />
                 {/* <Route path='*' element={<Home />} /> */}
                 <Route path='*' element={<NotFound />} />
             </Routes>

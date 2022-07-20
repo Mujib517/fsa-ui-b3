@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import Product from './Product';
 import IfElse from './IfElse';
+import { Link } from 'react-router-dom';
 
 class ProductList extends Component {
 
@@ -25,6 +26,10 @@ class ProductList extends Component {
     render() {
         return <div>
             <h1>Product List</h1>
+            <Link to="/products/new" className="m-2 btn btn-danger btn-sm">
+                Add product &nbsp;
+                <i className="fa fa-plus"></i>
+            </Link>
             <IfElse cond={this.state.hasError}>
                 <div className="alert alert-danger">Something went wrong please try again later.</div>
                 {this.state.products.data.map(product => <Product product={product} />)}
