@@ -3,8 +3,16 @@ import { Link } from 'react-router-dom';
 import PhoneIcon from './assets/img/phone-icon.png';
 import IfElse from './IfElse';
 
+import './Product.css';
+
 
 function Product({ product }) {
+
+    const calculateDiscountedPrice = () => {
+        const discountedAmount = product.price * product.discount / 100;
+        return product.price - discountedAmount;
+    };
+
     return <>
         <div className="card col-md-4">
             <IfElse cond={product.img}>
@@ -14,7 +22,8 @@ function Product({ product }) {
             <div className="card-body">
                 <Link to={"/products/" + product._id}>
                     <div className="card-title">{product.brand} {product.model}</div>
-                    <b>${product.price}</b>
+                    <div className="old-price"><b>${product.price}</b></div>
+                    <div className="new-price"><b>${calculateDiscountedPrice()}</b></div>
                     <div>
                         In Stock: <input type="checkbox" checked={product.inStock} />
                     </div>
