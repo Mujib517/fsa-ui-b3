@@ -1,45 +1,70 @@
+import axios from 'axios';
 import React from 'react';
+import ShouldRender from './ShouldRender';
 
 class NewProduct extends React.Component {
 
     state = {
-        brand: '',
-        model: '',
-        price: '',
-        inStock: false,
-        category: 'Electronics'
+        product: {
+            brand: '',
+            model: '',
+            price: '',
+            inStock: false,
+            category: 'Electronics',
+        },
+        hasError: false,
+        success: false
     };
 
     onInputChange = (evt) => {
-        this.setState({
+        const product = this.state.product;
+        const newProduct = {
+            ...product,
             [evt.target.name]: evt.target.value
-        });
+        };
+
+        this.setState({ product: newProduct });
     }
 
-    onSave = () => {
-        console.log(this.state);
+    onSave = async () => {
+        try {
+            await axios.post('https://fsa-api-b3.herokuapp.com/api/products', this.state.product);
+            this.setState({ success: true, hasError: false, product: {} });
+        } catch (e) {
+            this.setState({ success: false, hasError: true });
+        }
     }
-
 
     render() {
+        const { brand, model, price, inStock } = this.state.product;
         return <div className="col-md-4">
             <h1>New Product</h1>
+            <ShouldRender cond={this.state.success}>
+                <div className="alert alert-success">
+                    Successfully Saved.
+                </div>
+            </ShouldRender>
+            <ShouldRender cond={this.state.hasError}>
+                <div className="alert alert-danger">
+                    Something went wrong, please try again
+                </div>
+            </ShouldRender>
             <div className="m-3">
                 <label for="txtBrand" className="form-label">Brand</label>
-                <input id="txtBrand" name="brand"
+                <input id="txtBrand" name="brand" value={brand}
                     placeholder="Brand" className="form-control" type="text" onChange={this.onInputChange} />
             </div>
             <div className="m-3">
                 <label for="txtModel" className="form-label">Model</label>
-                <input id="txtModel" name="model" placeholder="Model" className="form-control" type="text" onChange={this.onInputChange} />
+                <input id="txtModel" name="model" value={model} placeholder="Model" className="form-control" type="text" onChange={this.onInputChange} />
             </div>
             <div className="m-3">
                 <label for="txtPrice" className="form-label">Price</label>
-                <input id="txtPrice" name="price" placeholder="Price" className="form-control" type="text" onChange={this.onInputChange} />
+                <input id="txtPrice" name="price" value={price} placeholder="Price" className="form-control" type="text" onChange={this.onInputChange} />
             </div>
             <div className="m-3">
                 <label for="chkPrice" className="form-label m-1">InStock</label>
-                <input type="checkbox" name="inStock" id="chkPrice" className="m-1 form-check-input" onChange={this.onInputChange} />
+                <input type="checkbox" name="inStock" value={inStock} id="chkPrice" className="m-1 form-check-input" onChange={this.onInputChange} />
             </div>
             <div className="m-3">
                 <button onClick={this.onSave} className="btn btn-success btn-sm">Save</button>
