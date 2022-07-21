@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 
+import productSvc from './services/productSvc';
 import Product from './Product';
 import IfElse from './IfElse';
 import { Link } from 'react-router-dom';
@@ -18,7 +18,7 @@ class ProductList extends Component {
     constructor() {
         super();
 
-        axios.get('https://fsa-api-b3.herokuapp.com/api/products/page/1/size/15')
+        productSvc.get()
             .then(res => this.setState({ products: res.data, hasError: false }))
             .catch(err => this.setState({ hasError: true }));
     }
