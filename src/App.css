@@ -3,3 +3,13 @@ body {
     margin: 0;
     padding: 0;
 }
+
+.loader {
+    position: absolute;
+    border: 1px solid grey;
+    background-color: #fff;
+    top: 45%;
+    left: 44%;
+    text-align: center;
+    width:180px;
+}

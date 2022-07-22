@@ -4,6 +4,8 @@ import productSvc from './services/productSvc';
 import Product from './Product';
 import IfElse from './IfElse';
 import { Link } from 'react-router-dom';
+import ShouldRender from './ShouldRender';
+import Loader from './Loader';
 
 class ProductList extends Component {
 
@@ -12,7 +14,8 @@ class ProductList extends Component {
             metadata: {},
             data: []
         },
-        hasError: false
+        hasError: false,
+        loading: true
     };
 
     constructor() {
@@ -20,7 +23,8 @@ class ProductList extends Component {
 
         productSvc.get()
             .then(res => this.setState({ products: res.data, hasError: false }))
-            .catch(err => this.setState({ hasError: true }));
+            .catch(err => this.setState({ hasError: true }))
+            .finally(() => this.setState({ loading: false }));
     }
 
     onRemoveChild = async () => {
@@ -31,6 +35,9 @@ class ProductList extends Component {
     render() {
         return <div>
             <h1>Product List</h1>
+            <ShouldRender cond={this.state.loading}>
+                <Loader />
+            </ShouldRender>
             <Link to="/products/new" className="m-2 btn btn-danger btn-sm">
                 Add product &nbsp;
                 <i className="fa fa-plus"></i>

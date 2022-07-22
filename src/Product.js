@@ -6,8 +6,6 @@ import productSvc from './services/productSvc';
 
 import './Product.css';
 
-
-
 function Product({ product, onDelete }) {
 
     const calculateDiscountedPrice = () => {
