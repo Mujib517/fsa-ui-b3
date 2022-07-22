@@ -31,8 +31,19 @@ class NewProduct extends React.Component {
     onSave = async () => {
         try {
             // consistent data
-            await productSvc.post(this.state.product);
-            this.setState({ success: true, hasError: false, product: {} });
+            // await productSvc.post(this.state.product);
+            this.setState({
+                success: true, hasError: false
+            });
+
+            const resetProduct = {
+                category: 'Electronics',
+                inStock: false,
+                discount: 20
+            };
+            this.setState({
+                product: resetProduct
+            });
         } catch (e) {
             this.setState({ success: false, hasError: true });
         }
@@ -59,7 +70,7 @@ class NewProduct extends React.Component {
             </ShouldRender>
             <div className="m-3">
                 <label for="txtBrand" className="form-label">Brand</label>
-                <input id="txtBrand" name="brand" value={brand}
+                <input id="txtBrand" name="brand" value={this.state.product.brand}
                     placeholder="Brand" className="form-control" type="text" onChange={this.onInputChange} />
                 <ShouldRender cond={!brand}>
                     <span className="text-danger">Brand is required</span>

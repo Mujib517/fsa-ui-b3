@@ -1,17 +1,15 @@
-import axios from 'axios';
-
-const host = 'https://fsa-api-b3.herokuapp.com';
+import axios from './axiosSvc';
 
 const get = () => {
-    return axios.get(host + '/api/products/page/1/size/15');
+    return axios.get('/api/products/page/1/size/15');
 };
 
 const post = (product) => {
-    return axios.post(host + '/api/products', product);
+    return axios.post('/api/products', product);
 }
 
 const getProductById = (id) => {
-    return axios.get(host + '/api/products/' + id);
+    return axios.get('/api/products/' + id);
 }
 
 export default { get, post, getProductById };
