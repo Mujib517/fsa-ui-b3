@@ -14,8 +14,11 @@ function Product({ product, onDelete }) {
     };
 
     const onRemove = async () => {
-        await productSvc.remove(product._id);
-        onDelete();
+        const result = window.confirm('Are you sure you want to delete?');
+        if (result) {
+            await productSvc.remove(product._id);
+            onDelete();
+        }
     };
 
     return <>
