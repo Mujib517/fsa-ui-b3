@@ -12,4 +12,8 @@ const getProductById = (id) => {
     return axios.get('/api/products/' + id);
 }
 
-export default { get, post, getProductById };
+const remove = (id) => {
+    return axios.delete(`/api/products/${id}`);
+};
+
+export default { get, post, getProductById, remove };

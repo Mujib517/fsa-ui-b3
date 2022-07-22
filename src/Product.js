@@ -2,15 +2,22 @@ import { Link } from 'react-router-dom';
 
 import PhoneIcon from './assets/img/phone-icon.png';
 import IfElse from './IfElse';
+import productSvc from './services/productSvc';
 
 import './Product.css';
 
 
-function Product({ product }) {
+
+function Product({ product, onDelete }) {
 
     const calculateDiscountedPrice = () => {
         const discountedAmount = product.price * product.discount / 100;
         return product.price - discountedAmount;
+    };
+
+    const onRemove = async () => {
+        await productSvc.remove(product._id);
+        onDelete();
     };
 
     return <>
@@ -33,6 +40,11 @@ function Product({ product }) {
                 <button className="btn btn-sm btn-danger">
                     Add to cart &nbsp;
                     <i class="fa fa-cart-plus"></i>
+                </button>
+
+                <button className="btn btn-sm btn-danger m-1" onClick={onRemove}>
+                    <i class="fa fa-close"></i>
+                    Delete
                 </button>
             </div>
         </div>

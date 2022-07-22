@@ -23,6 +23,11 @@ class ProductList extends Component {
             .catch(err => this.setState({ hasError: true }));
     }
 
+    onRemoveChild = async () => {
+        const res = await productSvc.get();
+        this.setState({ products: res.data, hasError: false });
+    };
+
     render() {
         return <div>
             <h1>Product List</h1>
@@ -32,7 +37,7 @@ class ProductList extends Component {
             </Link>
             <IfElse cond={this.state.hasError}>
                 <div className="alert alert-danger">Something went wrong please try again later.</div>
-                {this.state.products.data.map(product => <Product product={product} />)}
+                {this.state.products.data.map(product => <Product product={product} onDelete={this.onRemoveChild} />)}
             </IfElse>
         </div>
     }
