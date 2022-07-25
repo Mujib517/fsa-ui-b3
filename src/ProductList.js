@@ -58,4 +58,15 @@ export default ProductList;
 // DOM
 // Vue
 
+// Mount
+// constructor
+// render
+// componentDidMount
 
+// Update
+// shouldComponentUpdate
+// componentDidUpdate
+// render
+
+// Unmount
+// componentWillUnmount
