@@ -1,4 +1,9 @@
 import React from 'react';
+import AutoCounter from './AutoCounter';
+import Counter from './Counter';
+
+
+// Life cycle methods
 
 function Home() {
     // <div>
@@ -6,12 +11,7 @@ function Home() {
     // <h2> Hello World</h2>
     // <a href="google.com"/>
     // </div>
-    const h1 = React.createElement('h1', {}, "Home Page");
-    const h2 = React.createElement('h2', {}, "Hello World");
-    const a = React.createElement('a', { href: 'https://www.google.com' }, "Click me");
-    const div = React.createElement('div', {}, [h1, h2, a]);
-
-    return div;
+    return <AutoCounter />
 }
 
 export default Home;

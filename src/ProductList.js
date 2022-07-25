@@ -18,13 +18,15 @@ class ProductList extends Component {
         loading: true
     };
 
-    constructor() {
-        super();
-
-        productSvc.get()
-            .then(res => this.setState({ products: res.data, hasError: false }))
-            .catch(err => this.setState({ hasError: true }))
-            .finally(() => this.setState({ loading: false }));
+    componentDidMount = async () => {
+        try {
+            const res = await productSvc.get();
+            this.setState({ products: res.data, hasError: false });
+        } catch (err) {
+            this.setState({ hasError: true });
+        } finally {
+            this.setState({ loading: false });
+        }
     }
 
     onRemoveChild = async () => {
@@ -51,3 +53,9 @@ class ProductList extends Component {
 }
 
 export default ProductList;
+
+// Vitual DOM in memory object
+// DOM
+// Vue
+
+
