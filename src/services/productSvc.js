@@ -1,7 +1,7 @@
 import axios from './axiosSvc';
 
-const get = () => {
-    return axios.get('/api/products/page/1/size/15');
+const get = (page, limit) => {
+    return axios.get(`/api/products/page/${page}/size/${limit}`);
 };
 
 const post = (product) => {

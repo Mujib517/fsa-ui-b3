@@ -14,25 +14,40 @@ const ProductList = () => {
         data: []
     });
 
+    const [page, setPage] = useState(1);
+    const [limit, setLimit] = useState(5);
+
     const [hasError, setError] = useState(false);
     const [loading, setLoading] = useState(true);
 
-    useEffect(async () => {
-        try {
-            const res = await productSvc.get();
-            setProducts({ products: res.data });
-            setError(false);
-        } catch (err) {
-            setError(true);
-        } finally {
-            setLoading(false);
-        }
-    }, []);
+    useEffect(() => {
+        // IIFE
+        (async function () {
+            try {
+                const res = await productSvc.get(page, limit);
+                setProducts(res.data);
+                setError(false);
+            } catch (err) {
+                setError(true);
+            } finally {
+                setLoading(false);
+            }
+        })();
+    }, [page]);
 
     const onRemoveChild = async () => {
         const res = await productSvc.get();
         setProducts({ products: res.data });
         setError(false);
+    };
+
+    const onPrev = () => {
+        if (page > 1) setPage(page - 1);
+    };
+
+    const onNext = () => {
+        if (page < products.metadata.totalPages)
+            setPage(page + 1);
     };
 
     return <div>
@@ -46,7 +61,20 @@ const ProductList = () => {
         </Link>
         <IfElse cond={hasError}>
             <div className="alert alert-danger">Something went wrong please try again later.</div>
-            {products.data.map(product => <Product product={product} onDelete={onRemoveChild} />)}
+            <div>
+                <div className="btn-group">
+                    <button disabled={page === 1} onClick={onPrev} className="btn btn-outline-secondary">
+                        <i className="fa fa-arrow-left"></i>
+                    </button>
+                    <button disabled className="btn btn-outline-secondary">
+                        Page {page} of {products.metadata.totalPages}
+                    </button>
+                    <button disabled={page === products.metadata.totalPages} onClick={onNext} className="btn btn-outline-secondary">
+                        <i className="fa fa-arrow-right"></i>
+                    </button>
+                </div>
+                {products.data.map(product => <Product product={product} onDelete={onRemoveChild} />)}
+            </div>
         </IfElse>
     </div>
 }
