@@ -8,11 +8,11 @@ const CounterFunc = ({ count }) => {
     const [countState, setCountState] = useState(count);
 
     const inc = () => {
-        setCountState(1000);
+        setCountState(countState + 1);
     }
 
     const dec = () => {
-        setCountState(10);
+        setCountState(countState - 1);
     }
 
     return <>
