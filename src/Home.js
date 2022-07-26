@@ -12,7 +12,7 @@ function Home() {
     // <h2> Hello World</h2>
     // <a href="google.com"/>
     // </div>
-    return <CounterFunc count={100} />
+    return <AutoCounter />
 }
 
 export default Home;
