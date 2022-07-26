@@ -1,32 +1,26 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import productSvc from './services/productSvc';
 
 
-class ProductDetail extends Component {
+const ProductDetail = () => {
 
-    state = {
-        product: {}
-    }
+    const [product, setProduct] = useState({});
 
-    constructor(props) {
-        super(props);
+    useEffect(() => {
         productSvc.getProductById('62bd11e0e1a093e318618d84')
             .then(res => {
                 console.log(res, 'response came');
-                this.setState({ product: res.data });
+                setProduct(res.data);
             })
             .catch(err => console.log(err));
-    }
+    }, []);
 
-    render() {
-        const { brand, model, price } = this.state.product;
-        return <>
-            <h1>Product Detail</h1>
-            <b>{brand} {model}</b>
-            <div><b>${price}</b></div>
-        </>
-    }
-}
+    const { brand, model, price } = product;
+    return <>
+        <h1>Product Detail</h1>
+        <b>{brand} {model}</b>
+        <div><b>${price}</b></div>
+    </>
+};
 
 export default ProductDetail;

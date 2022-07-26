@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import productSvc from './services/productSvc';
 import Product from './Product';
@@ -7,49 +7,48 @@ import { Link } from 'react-router-dom';
 import ShouldRender from './ShouldRender';
 import Loader from './Loader';
 
-class ProductList extends Component {
+const ProductList = () => {
 
-    state = {
-        products: {
-            metadata: {},
-            data: []
-        },
-        hasError: false,
-        loading: true
-    };
+    const [products, setProducts] = useState({
+        metadata: {},
+        data: []
+    });
 
-    componentDidMount = async () => {
+    const [hasError, setError] = useState(false);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(async () => {
         try {
             const res = await productSvc.get();
-            this.setState({ products: res.data, hasError: false });
+            setProducts({ products: res.data });
+            setError(false);
         } catch (err) {
-            this.setState({ hasError: true });
+            setError(true);
         } finally {
-            this.setState({ loading: false });
+            setLoading(false);
         }
-    }
+    }, []);
 
-    onRemoveChild = async () => {
+    const onRemoveChild = async () => {
         const res = await productSvc.get();
-        this.setState({ products: res.data, hasError: false });
+        setProducts({ products: res.data });
+        setError(false);
     };
 
-    render() {
-        return <div>
-            <h1>Product List</h1>
-            <ShouldRender cond={this.state.loading}>
-                <Loader />
-            </ShouldRender>
-            <Link to="/products/new" className="m-2 btn btn-danger btn-sm">
-                Add product &nbsp;
-                <i className="fa fa-plus"></i>
-            </Link>
-            <IfElse cond={this.state.hasError}>
-                <div className="alert alert-danger">Something went wrong please try again later.</div>
-                {this.state.products.data.map(product => <Product product={product} onDelete={this.onRemoveChild} />)}
-            </IfElse>
-        </div>
-    }
+    return <div>
+        <h1>Product List</h1>
+        <ShouldRender cond={loading}>
+            <Loader />
+        </ShouldRender>
+        <Link to="/products/new" className="m-2 btn btn-danger btn-sm">
+            Add product &nbsp;
+            <i className="fa fa-plus"></i>
+        </Link>
+        <IfElse cond={hasError}>
+            <div className="alert alert-danger">Something went wrong please try again later.</div>
+            {products.data.map(product => <Product product={product} onDelete={onRemoveChild} />)}
+        </IfElse>
+    </div>
 }
 
 export default ProductList;
