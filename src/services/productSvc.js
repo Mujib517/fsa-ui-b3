@@ -1,7 +1,9 @@
 import axios from './axiosSvc';
 
-const get = (page, limit, search) => {
-    return axios.get(`/api/products/page/${page}/size/${limit}?search=${search}`);
+const get = (page, limit, search, sort) => {
+    // Price ASC
+    const [sortBy, sortDir] = sort.split(' ');
+    return axios.get(`/api/products/page/${page}/size/${limit}?search=${search}&sort=${sortBy}&dir=${sortDir}`);
 };
 
 const post = (product) => {

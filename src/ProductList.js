@@ -17,6 +17,7 @@ const ProductList = () => {
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(10);
     const [search, setSearch] = useState('');
+    const [sort, setSort] = useState('');
 
     const [hasError, setError] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -25,7 +26,7 @@ const ProductList = () => {
         // IIFE
         (async function () {
             try {
-                const res = await productSvc.get(page, limit, search);
+                const res = await productSvc.get(page, limit, search, sort);
                 setProducts(res.data);
                 setError(false);
             } catch (err) {
@@ -34,7 +35,7 @@ const ProductList = () => {
                 setLoading(false);
             }
         })();
-    }, [page, limit, search]);
+    }, [page, limit, search, sort]);
 
     const onRemoveChild = async () => {
         const res = await productSvc.get();
@@ -60,6 +61,10 @@ const ProductList = () => {
         if (evt.key === 'Enter') {
             setSearch(evt.target.value);
         }
+    };
+
+    const onSortChange = (evt) => {
+        setSort(evt.target.value);
     };
 
     return <div>
@@ -88,6 +93,13 @@ const ProductList = () => {
                     </div>
                     <div>
                         <input onKeyUp={onSearch} type="text" className="form-control" placeholder="Search" />
+                    </div>
+                    <div>
+                        <select onChange={onSortChange} className="form-select">
+                            <option value="">Sort By</option>
+                            <option value="price ASC">Price Ascending</option>
+                            <option value="price DESC">Price Descending</option>
+                        </select>
                     </div>
                     <button disabled className="btn btn-outline-secondary">
                         Page {page} of {products.metadata.totalPages}
