@@ -16,6 +16,7 @@ import NotFound from './NotFound';
 import ProductList from './ProductList';
 import ProductDetail from './ProductDetail';
 import NewProduct from './NewProduct';
+import Login from './Login';
 
 // Single Page App (SPA)
 // One page index.html
@@ -34,6 +35,7 @@ const App = () => {
                 <Route path='/products' element={<ProductList />} />
                 <Route path='/products/:id' element={<ProductDetail />} />
                 <Route path='/products/new' element={<NewProduct />} />
+                <Route path='/login' element={<Login />} />
                 {/* <Route path='*' element={<Home />} /> */}
                 <Route path='*' element={<NotFound />} />
             </Routes>

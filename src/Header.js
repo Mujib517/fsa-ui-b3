@@ -24,7 +24,7 @@ const Header = () => {
                     <button className="btn btn-sm btn-danger">Register</button>
                 </li>
                 <li className="nav-item m-1">
-                    <button className="btn btn-sm btn-success">Login</button>
+                    <Link to="/login" className="btn btn-sm btn-success">Login</Link>
                 </li>
             </ul>
         </div>
