@@ -15,7 +15,8 @@ const ProductList = () => {
     });
 
     const [page, setPage] = useState(1);
-    const [limit, setLimit] = useState(5);
+    const [limit, setLimit] = useState(10);
+    const [search, setSearch] = useState('');
 
     const [hasError, setError] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -24,7 +25,7 @@ const ProductList = () => {
         // IIFE
         (async function () {
             try {
-                const res = await productSvc.get(page, limit);
+                const res = await productSvc.get(page, limit, search);
                 setProducts(res.data);
                 setError(false);
             } catch (err) {
@@ -33,7 +34,7 @@ const ProductList = () => {
                 setLoading(false);
             }
         })();
-    }, [page]);
+    }, [page, limit, search]);
 
     const onRemoveChild = async () => {
         const res = await productSvc.get();
@@ -50,6 +51,17 @@ const ProductList = () => {
             setPage(page + 1);
     };
 
+    const onPageSizeChange = (evt) => {
+        setLimit(evt.target.value);
+    };
+
+    const onSearch = (evt) => {
+        console.log(evt);
+        if (evt.key === 'Enter') {
+            setSearch(evt.target.value);
+        }
+    };
+
     return <div>
         <h1>Product List</h1>
         <ShouldRender cond={loading}>
@@ -62,10 +74,21 @@ const ProductList = () => {
         <IfElse cond={hasError}>
             <div className="alert alert-danger">Something went wrong please try again later.</div>
             <div>
-                <div className="btn-group">
+                <div className="btn-group mb-3">
                     <button disabled={page === 1} onClick={onPrev} className="btn btn-outline-secondary">
                         <i className="fa fa-arrow-left"></i>
                     </button>
+                    <div>
+                        <select onChange={onPageSizeChange} value={limit} className="form-select">
+                            <option>10</option>
+                            <option>20</option>
+                            <option>50</option>
+                            <option>100</option>
+                        </select>
+                    </div>
+                    <div>
+                        <input onKeyUp={onSearch} type="text" className="form-control" placeholder="Search" />
+                    </div>
                     <button disabled className="btn btn-outline-secondary">
                         Page {page} of {products.metadata.totalPages}
                     </button>
