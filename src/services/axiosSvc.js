@@ -10,7 +10,6 @@ const getInstance = () => {
         const token = user.token || '';
         headers.authorization = 'Bearer ' + token;
     }
-
     return axios.create({
         baseURL: host,
         headers

@@ -17,7 +17,7 @@ const ProductList = () => {
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(10);
     const [search, setSearch] = useState('');
-    const [sort, setSort] = useState('');
+    const [sort, setSort] = useState('updatedAt DESC');
 
     const [hasError, setError] = useState(false);
     const [loading, setLoading] = useState(true);

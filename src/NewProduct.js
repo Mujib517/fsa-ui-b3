@@ -12,7 +12,8 @@ class NewProduct extends React.Component {
             price: '',
             inStock: false,
             category: 'Electronics',
-            discount: 20
+            discount: 20,
+            img: null
         },
         hasError: false,
         success: false
@@ -31,7 +32,7 @@ class NewProduct extends React.Component {
     onSave = async () => {
         try {
             // consistent data
-            // await productSvc.post(this.state.product);
+            await productSvc.post(this.state.product);
             this.setState({
                 success: true, hasError: false
             });
@@ -52,6 +53,11 @@ class NewProduct extends React.Component {
     isInvalid = () => {
         const { brand, model, price } = this.state.product;
         return !brand || !model || !price;
+    }
+
+    onFileChange = (evt) => {
+        const newProduct = { ...this.state.product, img: evt.target.files[0] };
+        this.setState({ product: newProduct });
     }
 
     render() {
@@ -93,6 +99,10 @@ class NewProduct extends React.Component {
             <div className="m-3">
                 <label for="chkPrice" className="form-label m-1">InStock</label>
                 <input type="checkbox" name="inStock" value={inStock} id="chkPrice" className="m-1 form-check-input" onChange={this.onInputChange} />
+            </div>
+            <div className="m-3">
+                <label for="fileImg" className="form-label m-1">Image</label>
+                <input type="file" name="img" id="fileImg" className="m-1" onChange={this.onFileChange} />
             </div>
             <div className="m-3">
                 <button disabled={this.isInvalid()} onClick={this.onSave} className="btn btn-success btn-sm">Save</button>
