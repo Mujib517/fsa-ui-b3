@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import userSvc from "./services/userSvc";
 import ShouldRender from "./ShouldRender";
 
@@ -6,12 +8,14 @@ const Login = () => {
 
     const [user, setUser] = useState({ email: '', password: '' });
     const [hasError, setError] = useState(false);
+    const navigate = useNavigate();
 
     const onLogin = async (evt) => {
         try {
             evt.preventDefault();
             const res = await userSvc.login(user);
-            console.log(res);
+            localStorage.setItem('user', JSON.stringify(res.data));
+            navigate('/products');
         } catch (e) {
             if (e.response.status === 401) setError(true);
         }
