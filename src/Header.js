@@ -1,6 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
+
+    const navigate = useNavigate();
+
+    const onLogout = () => {
+        localStorage.removeItem('user');
+        navigate('/login');
+    };
+
     return <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
             <a class="navbar-brand" href="#">FSA Products</a>
@@ -25,6 +33,9 @@ const Header = () => {
                 </li>
                 <li className="nav-item m-1">
                     <Link to="/login" className="btn btn-sm btn-success">Login</Link>
+                </li>
+                <li className="nav-item m-1">
+                    <button onClick={onLogout} className="btn btn-sm btn-danger">Logout</button>
                 </li>
             </ul>
         </div>
