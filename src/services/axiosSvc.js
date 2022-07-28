@@ -1,9 +1,21 @@
 import axios from 'axios';
 
-const host = 'https://fsa-api-b3.herokuapp.com';
+const getInstance = () => {
+    const host = 'https://fsa-api-b3.herokuapp.com';
 
-const instance = axios.create({
-    baseURL: host
-});
+    let headers = {};
+    const userItem = localStorage.getItem('user');
+    const user = JSON.parse(userItem);
+    if (user) {
+        const token = user.token || '';
+        headers.authorization = 'Bearer ' + token;
+    }
 
-export default instance;
+    return axios.create({
+        baseURL: host,
+        headers
+    });
+};
+
+
+export default getInstance;

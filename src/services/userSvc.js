@@ -1,6 +1,7 @@
-import axios from "./axiosSvc";
+import getInstance from "./axiosSvc";
 
 const login = (user) => {
+    const axios = getInstance();
     return axios.post('/api/users/login', user);
 };
 
