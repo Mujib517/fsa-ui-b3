@@ -12,7 +12,10 @@ function Home() {
     // <h2> Hello World</h2>
     // <a href="google.com"/>
     // </div>
-    return <AutoCounter />
+    return <>
+        <h1>Home Page</h1>
+        <AutoCounter />
+    </>
 }
 
 export default Home;
