@@ -34,6 +34,9 @@ const Header = () => {
                     <Link className="nav-link active" aria-current="page" to="/contact">Contact</Link>
                 </li>
                 <li className="nav-item m-1">
+                    <i style={{fontSize:'30px'}} className="fa fa-shopping-cart"></i>
+                </li>
+                <li className="nav-item m-1">
                     <button className="btn btn-sm btn-danger">Register</button>
                 </li>
                 <IfElse cond={isLoggedIn()}>
