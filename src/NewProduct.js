@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React from 'react';
 import productSvc from './services/productSvc';
 import ShouldRender from './ShouldRender';

@@ -1,28 +1,34 @@
-import { useState } from "react";
-
+import React, { useContext, useState } from "react";
+import DataContext from "./context/DataContext";
 // Flux
 // Redux: complex
 // Context API
-const Level2 = ({ phone, onNotify }) => <>
+const Level2 = () => <>
     <h1>Level 2</h1>
-    <Level3 phone={phone} onNotify={onNotify} />
+    <Level3 />
 </>
 
-const Level3 = ({ phone, onNotify }) => <>
-    <h1>Level 3 {phone}</h1>
-    <button onClick={() => onNotify()}>Notify</button>
-</>
+const Level3 = () => {
+    const { phone, onNotify } = useContext(DataContext);
+    return <>
+        <h1>Level 3 {phone}</h1>
+        <button onClick={() => onNotify({ a: 1, b: 2 })}>Notify</button>
+    </>
+}
 
-const Level1 = ({ phone, onNotify }) => <div>
+const Level1 = () => <div>
     <h1>Level 1</h1>
-    <Level2 phone={phone} onNotify={onNotify} />
+    <Level2 />
 </div>
 
 function Contact() {
     const [phone] = useState('949595959');
-    const onNotify = () => console.log('notified');
+    const onNotify = (data) => console.log('notified', data);
+
     return <div>
-        <Level1 phone={phone} onNotify={onNotify} />
+        <DataContext.Provider value={{ phone, onNotify }}>
+            <Level1 />
+        </DataContext.Provider>
         <h1>Contact Page</h1>
     </div>
 }
