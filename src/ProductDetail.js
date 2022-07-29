@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import productSvc from './services/productSvc';
 
-
 const ProductDetail = () => {
 
     const [product, setProduct] = useState({});

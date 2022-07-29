@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 import PhoneIcon from './assets/img/phone-icon.png';
 import IfElse from './IfElse';
@@ -20,7 +21,7 @@ function Product({ product, onDelete }) {
             onDelete();
         }
     };
-
+    
     return <>
         <div className="card col-md-4">
             <IfElse cond={product.img}>
@@ -34,6 +35,9 @@ function Product({ product, onDelete }) {
                     <div className="new-price"><b>${calculateDiscountedPrice()}</b></div>
                     <div>
                         In Stock: <input type="checkbox" checked={product.inStock} />
+                    </div>
+                    <div>
+                        Last Updated: {moment(product.updatedAt).fromNow()}
                     </div>
                 </Link>
             </div>
