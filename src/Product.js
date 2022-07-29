@@ -40,11 +40,11 @@ function Product({ product, onDelete }) {
             <div className="card-footer">
                 <button className="btn btn-sm btn-danger">
                     Add to cart &nbsp;
-                    <i class="fa fa-cart-plus"></i>
+                    <i className="fa fa-cart-plus"></i>
                 </button>
 
                 <button className="btn btn-sm btn-danger m-1" onClick={onRemove}>
-                    <i class="fa fa-close"></i>
+                    <i className="fa fa-close"></i>
                     Delete
                 </button>
             </div>

@@ -18,8 +18,8 @@ const CounterFunc = ({ count }) => {
     return <>
         <h1>Counter {countState}</h1>
         <div className="btn-group">
-            <button onClick={inc} class="btn btn-lg btn-success">++</button>
-            <button onClick={dec} class="btn btn-lg btn-danger">--</button>
+            <button onClick={inc} className="btn btn-lg btn-success">++</button>
+            <button onClick={dec} className="btn btn-lg btn-danger">--</button>
         </div>
     </>
 };

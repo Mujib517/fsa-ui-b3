@@ -3,12 +3,13 @@ import React, { useEffect, useState } from 'react';
 import productSvc from './services/productSvc';
 import Product from './Product';
 import IfElse from './IfElse';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ShouldRender from './ShouldRender';
 import Loader from './Loader';
 
 const ProductList = () => {
 
+    const navigate = useNavigate();
     const [products, setProducts] = useState({
         metadata: {},
         data: []
@@ -31,6 +32,10 @@ const ProductList = () => {
                 setError(false);
             } catch (err) {
                 setError(true);
+                console.log(err, 'err');
+                if (err.response.status === 401) {
+                    navigate('/login');
+                }
             } finally {
                 setLoading(false);
             }
