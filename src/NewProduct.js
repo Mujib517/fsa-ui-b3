@@ -4,16 +4,18 @@ import ShouldRender from './ShouldRender';
 
 class NewProduct extends React.Component {
 
+    initialProduct = {
+        brand: '',
+        model: '',
+        price: '',
+        inStock: false,
+        category: 'Electronics',
+        discount: 20,
+        img: null
+    };
+
     state = {
-        product: {
-            brand: '',
-            model: '',
-            price: '',
-            inStock: false,
-            category: 'Electronics',
-            discount: 20,
-            img: null
-        },
+        product: this.initialProduct,
         hasError: false,
         success: false
     };
@@ -36,14 +38,7 @@ class NewProduct extends React.Component {
                 success: true, hasError: false
             });
 
-            const resetProduct = {
-                category: 'Electronics',
-                inStock: false,
-                discount: 20
-            };
-            this.setState({
-                product: resetProduct
-            });
+            this.setState({ product: this.initialProduct });
         } catch (e) {
             this.setState({ success: false, hasError: true });
         }
