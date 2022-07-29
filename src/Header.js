@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
+import IfElse from "./IfElse";
 
 const Header = () => {
 
@@ -7,6 +8,10 @@ const Header = () => {
     const onLogout = () => {
         localStorage.removeItem('user');
         navigate('/login');
+    };
+
+    const isLoggedIn = () => {
+        return !!localStorage.getItem('user');
     };
 
     return <nav class="navbar navbar-expand-lg navbar-light">
@@ -31,12 +36,15 @@ const Header = () => {
                 <li className="nav-item m-1">
                     <button className="btn btn-sm btn-danger">Register</button>
                 </li>
-                <li className="nav-item m-1">
-                    <Link to="/login" className="btn btn-sm btn-success">Login</Link>
-                </li>
-                <li className="nav-item m-1">
-                    <button onClick={onLogout} className="btn btn-sm btn-danger">Logout</button>
-                </li>
+                <IfElse cond={isLoggedIn()}>
+                    <li className="nav-item m-1">
+                        <button onClick={onLogout} className="btn btn-sm btn-danger">Logout</button>
+                    </li>
+                    <li className="nav-item m-1">
+                        <Link to="/login" className="btn btn-sm btn-success">Login</Link>
+                    </li>
+                </IfElse>
+
             </ul>
         </div>
     </nav>
