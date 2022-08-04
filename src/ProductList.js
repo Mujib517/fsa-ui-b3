@@ -27,9 +27,13 @@ const ProductList = () => {
         // IIFE
         (async function () {
             try {
-                const res = await productSvc.get(page, limit, search, sort);
-                setProducts(res.data);
-                setError(false);
+                if (!localStorage.getItem('user')) {
+                    navigate('/login');
+                } else {
+                    const res = await productSvc.get(page, limit, search, sort);
+                    setProducts(res.data);
+                    setError(false);
+                }
             } catch (err) {
                 setError(true);
                 console.log(err, 'err');

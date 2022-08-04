@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import productSvc from './services/productSvc';
 
 const ProductDetail = () => {
 
     const [product, setProduct] = useState({});
+    const params = useParams();
 
     useEffect(() => {
-        productSvc.getProductById('62bd11e0e1a093e318618d84')
+        productSvc.getProductById(params.id)
             .then(res => {
                 console.log(res, 'response came');
                 setProduct(res.data);
